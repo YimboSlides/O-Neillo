@@ -15,6 +15,7 @@ namespace GameBoardTest
 {
     public partial class Start_Screen : Form
     {
+        //player names
         string name1;
         string name2;
         

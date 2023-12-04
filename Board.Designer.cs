@@ -35,9 +35,16 @@
             gameToolStripMenuItem = new ToolStripMenuItem();
             saveGameToolStripMenuItem = new ToolStripMenuItem();
             save1ToolStripMenuItem = new ToolStripMenuItem();
+            save2ToolStripMenuItem = new ToolStripMenuItem();
+            save3ToolStripMenuItem = new ToolStripMenuItem();
+            save4ToolStripMenuItem = new ToolStripMenuItem();
+            save5ToolStripMenuItem = new ToolStripMenuItem();
             loadGameToolStripMenuItem = new ToolStripMenuItem();
-            save1ToolStripMenuItem1 = new ToolStripMenuItem();
-            save2ToolStripMenuItem1 = new ToolStripMenuItem();
+            load1 = new ToolStripMenuItem();
+            load2 = new ToolStripMenuItem();
+            load3 = new ToolStripMenuItem();
+            load4 = new ToolStripMenuItem();
+            load5 = new ToolStripMenuItem();
             newGameToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             settingsToolStripMenuItem = new ToolStripMenuItem();
@@ -103,11 +110,11 @@
             // 
             // saveGameToolStripMenuItem
             // 
-            saveGameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { save1ToolStripMenuItem });
+            saveGameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { save1ToolStripMenuItem, save2ToolStripMenuItem, save3ToolStripMenuItem, save4ToolStripMenuItem, save5ToolStripMenuItem });
+            saveGameToolStripMenuItem.Enabled = false;
             saveGameToolStripMenuItem.Name = "saveGameToolStripMenuItem";
             saveGameToolStripMenuItem.Size = new Size(359, 44);
             saveGameToolStripMenuItem.Text = "Save Game";
-            saveGameToolStripMenuItem.Click += saveGameToolStripMenuItem_Click;
             // 
             // save1ToolStripMenuItem
             // 
@@ -116,25 +123,75 @@
             save1ToolStripMenuItem.Text = "Save 1";
             save1ToolStripMenuItem.Click += save1ToolStripMenuItem_Click;
             // 
+            // save2ToolStripMenuItem
+            // 
+            save2ToolStripMenuItem.Name = "save2ToolStripMenuItem";
+            save2ToolStripMenuItem.Size = new Size(359, 44);
+            save2ToolStripMenuItem.Text = "Save 2";
+            save2ToolStripMenuItem.Click += save2ToolStripMenuItem_Click;
+            // 
+            // save3ToolStripMenuItem
+            // 
+            save3ToolStripMenuItem.Name = "save3ToolStripMenuItem";
+            save3ToolStripMenuItem.Size = new Size(359, 44);
+            save3ToolStripMenuItem.Text = "Save 3";
+            save3ToolStripMenuItem.Click += save3ToolStripMenuItem_Click;
+            // 
+            // save4ToolStripMenuItem
+            // 
+            save4ToolStripMenuItem.Name = "save4ToolStripMenuItem";
+            save4ToolStripMenuItem.Size = new Size(359, 44);
+            save4ToolStripMenuItem.Text = "Save 4";
+            save4ToolStripMenuItem.Click += save4ToolStripMenuItem_Click;
+            // 
+            // save5ToolStripMenuItem
+            // 
+            save5ToolStripMenuItem.Name = "save5ToolStripMenuItem";
+            save5ToolStripMenuItem.Size = new Size(359, 44);
+            save5ToolStripMenuItem.Text = "Save 5";
+            save5ToolStripMenuItem.Click += save5ToolStripMenuItem_Click;
+            // 
             // loadGameToolStripMenuItem
             // 
-            loadGameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { save1ToolStripMenuItem1, save2ToolStripMenuItem1 });
+            loadGameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { load1, load2, load3, load4, load5 });
             loadGameToolStripMenuItem.Name = "loadGameToolStripMenuItem";
             loadGameToolStripMenuItem.Size = new Size(359, 44);
             loadGameToolStripMenuItem.Text = "Load Game";
-            loadGameToolStripMenuItem.Click += loadGameToolStripMenuItem_Click;
             // 
-            // save1ToolStripMenuItem1
+            // load1
             // 
-            save1ToolStripMenuItem1.Name = "save1ToolStripMenuItem1";
-            save1ToolStripMenuItem1.Size = new Size(217, 44);
-            save1ToolStripMenuItem1.Text = "Save 1";
+            load1.Name = "load1";
+            load1.Size = new Size(359, 44);
+            load1.Text = "Save 1";
+            load1.Click += load1_Click;
             // 
-            // save2ToolStripMenuItem1
+            // load2
             // 
-            save2ToolStripMenuItem1.Name = "save2ToolStripMenuItem1";
-            save2ToolStripMenuItem1.Size = new Size(217, 44);
-            save2ToolStripMenuItem1.Text = "Save 2";
+            load2.Name = "load2";
+            load2.Size = new Size(359, 44);
+            load2.Text = "Save 2";
+            load2.Click += load2_Click;
+            // 
+            // load3
+            // 
+            load3.Name = "load3";
+            load3.Size = new Size(359, 44);
+            load3.Text = "Save 3";
+            load3.Click += load3_Click;
+            // 
+            // load4
+            // 
+            load4.Name = "load4";
+            load4.Size = new Size(359, 44);
+            load4.Text = "Save 4";
+            load4.Click += load4_Click;
+            // 
+            // load5
+            // 
+            load5.Name = "load5";
+            load5.Size = new Size(359, 44);
+            load5.Text = "Save 5";
+            load5.Click += load5_Click;
             // 
             // newGameToolStripMenuItem
             // 
@@ -163,7 +220,7 @@
             informationPanelToolStripMenuItem.CheckOnClick = true;
             informationPanelToolStripMenuItem.CheckState = CheckState.Checked;
             informationPanelToolStripMenuItem.Name = "informationPanelToolStripMenuItem";
-            informationPanelToolStripMenuItem.Size = new Size(336, 44);
+            informationPanelToolStripMenuItem.Size = new Size(359, 44);
             informationPanelToolStripMenuItem.Text = "Information Panel";
             informationPanelToolStripMenuItem.Click += informationPanelToolStripMenuItem_Click;
             // 
@@ -171,7 +228,7 @@
             // 
             speakToolStripMenuItem.CheckOnClick = true;
             speakToolStripMenuItem.Name = "speakToolStripMenuItem";
-            speakToolStripMenuItem.Size = new Size(336, 44);
+            speakToolStripMenuItem.Size = new Size(359, 44);
             speakToolStripMenuItem.Text = "Speak";
             speakToolStripMenuItem.Click += speakToolStripMenuItem_Click;
             // 
@@ -314,7 +371,14 @@
         private Label lbl_ScoreTwo;
         private Label lbl_name2;
         private ToolStripMenuItem save1ToolStripMenuItem;
-        private ToolStripMenuItem save1ToolStripMenuItem1;
-        private ToolStripMenuItem save2ToolStripMenuItem1;
+        private ToolStripMenuItem load1;
+        private ToolStripMenuItem load2;
+        private ToolStripMenuItem save2ToolStripMenuItem;
+        private ToolStripMenuItem save3ToolStripMenuItem;
+        private ToolStripMenuItem save4ToolStripMenuItem;
+        private ToolStripMenuItem save5ToolStripMenuItem;
+        private ToolStripMenuItem load3;
+        private ToolStripMenuItem load4;
+        private ToolStripMenuItem load5;
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Assignment_oNeillo
 {
     //class to create a new save slot
-    internal class SaveSlot
+    public class SaveSlot
     {
         //attributes that need to be stored for each slot.
         public string player1Name { get; set; }
@@ -23,18 +23,7 @@ namespace Assignment_oNeillo
         //2d array for the data
         public int[,] data { get; set; }
 
-        //method to save the data 
-        public void SaveState()
-        {
-            //access file
-            string filePath = "saves.json";
-
-            //convert object to serialised version
-            string serialisedState = JsonConvert.SerializeObject(this);
-
-            //write to the file
-            //this currently overwrites the data
-            File.WriteAllText(filePath, serialisedState);
-        }
+        //name of slot
+        public string name { get; set; }
     }
 }

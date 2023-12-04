@@ -12,11 +12,9 @@ using GameBoardTest;
 
 namespace Assignment_oNeillo
 {
+    //class for the save notice form
     public partial class Save : Form
-    {
-        //public string name1 = "";
-        //public string name2 = "";
-        
+    {   
         //bool for if user wants to save game-in-progress
         public bool saveGame;
 

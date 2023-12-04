@@ -17,10 +17,9 @@ namespace GameBoardTest
         const int rowNum = 8;
         const int colNum = 8;
 
-        //List of Objects for having multiple saves
-
-        List<SaveSlot> saves = new List<SaveSlot>();
-
+        //List of SaveSlots
+        SaveList Slots = new SaveList();
+        
         //other variables for game over and TTS
         bool gameOver = false;
         bool speaking = false;
@@ -35,7 +34,8 @@ namespace GameBoardTest
 
         //2D array to store the gameData
         int[,] gameBoardData;
-        
+        int[,] startingBoard;
+
         //finds the file path for the images
         string tileImagesDirPath = Directory.GetCurrentDirectory() + @"\images\";
 
@@ -49,16 +49,20 @@ namespace GameBoardTest
         //whether the data has been saved or not
         public Board(string name1, string name2)
         {
+            
             InitializeComponent();
+            
+            //assigns player names
             player1.name = name1;
             player2.name = name2;
 
+            
             //establishes board size
             Point top = new Point(75, 75);
             Point bottom = new Point(75, 225);
 
             //generates the data for the gameboard
-            
+
             gameBoardData = this.GenerateBoard();
 
             try
@@ -81,12 +85,90 @@ namespace GameBoardTest
             lbl_name1.Text = player1.name;
             lbl_name2.Text = player2.name;
 
+            //sets turn order arrows
             pbox_arrow1.Visible = true;
             pbox_arrow2.Visible = false;
 
             //display starting score
             lbl_ScoreOne.Text = player1.CalcScore(gameBoardData, rowNum, colNum).ToString();
             lbl_ScoreTwo.Text = player2.CalcScore(gameBoardData, rowNum, colNum).ToString();
+
+            //Initialise basic data to fill saves with
+            SaveSlot Save = new SaveSlot();
+            Save.data = startingBoard;
+            Save.player1Name = player1.name;
+            Save.player2Name = player2.name;
+            Save.currentPlayer = 0;
+            Save.nextPlayer = 1;
+            Save.name = "empty";
+
+            string filePath = "game_data.json";
+
+            //deserialises content in the json file
+            string stateData = File.ReadAllText(filePath);
+
+            //statement to deal with empty game_data file
+            if (stateData == "")
+            {
+                //new temporary list 
+                SaveList tempSaves = new SaveList();
+                tempSaves.saves = new List<SaveSlot>();
+
+                for(int i = 0; i < 5; i++)
+                {
+                    //adds 'empty' save slot
+                    tempSaves.saves.Add(Save);
+                    
+                }
+                //converts to Json data, writes to file
+                string serialisedState = JsonConvert.SerializeObject(tempSaves.saves);
+                File.WriteAllText(filePath, serialisedState);
+
+                //recollects data
+                stateData = File.ReadAllText(filePath);
+            }
+
+            //sets list of saves to all data in Json file
+            Slots.saves = JsonConvert.DeserializeObject<List<SaveSlot>>(stateData);
+
+            //if the list is not full (less than 5 saves found)
+            //add 'empty' saves to fill out.
+            if (Slots.saves.Count() < 5)
+            {
+                int count;
+              
+                count = Slots.saves.Count();
+
+                for (int i = count; i < 5; i++)
+                {
+                    Slots.saves.Add(Save);
+                }
+            }
+
+            //cannot load a save that are 'empty'
+            if (Slots.saves[0].name == "empty")
+            {
+                load1.Enabled = false;
+            }
+            if (Slots.saves[1].name == "empty")
+            {
+                load2.Enabled = false;
+            }
+            if (Slots.saves[2].name == "empty")
+            {
+                load3.Enabled = false;
+            }
+            if (Slots.saves[3].name == "empty")
+            {
+                load4.Enabled = false;
+            }
+            if (Slots.saves[4].name == "empty")
+            {
+                load5.Enabled = false;
+            }
+
+
+
         }
 
         //creates board
@@ -141,24 +223,14 @@ namespace GameBoardTest
                 }
             }
             //return grid data
+            startingBoard = boardArray;
             return boardArray;
-        }
-
-        //unused function for gathering save data
-        public void RecoverSaves()
-        {
-            string filePath = "saves.json";
-
-            //deserialises content in the json file
-            string stateData = File.ReadAllText(filePath);
-            SaveSlot LoadedState = JsonConvert.DeserializeObject<SaveSlot>(stateData);
-
-
         }
 
         //handles when tile is clicked
         private void GameTileClicked(object sender, EventArgs e)
         {
+            saveGameToolStripMenuItem.Enabled = true;
             //grabs the position user has clicked
             int selectedRow = _gameBoardGui.GetCurrentRowIndex(sender);
             int selectedCol = _gameBoardGui.GetCurrentColumnIndex(sender);
@@ -423,7 +495,7 @@ namespace GameBoardTest
         }
 
         //determines if game-in-progress must be saved
-        public bool SaveChoice()
+        public bool SaveChoice(string text)
         {
             //gets intent from Save Menu
             //save or new game
@@ -439,7 +511,7 @@ namespace GameBoardTest
             else
             {
                 //open dialog box prompt
-                Save saveMenu = new Save("You currently have a game in progress. Would you like to save this game?", "Yes", "No");
+                Save saveMenu = new Save(text, "Yes", "No");
                 saveMenu.ShowDialog();
 
                 //wait for response
@@ -451,9 +523,10 @@ namespace GameBoardTest
         }
 
         //save game
-        public void SaveGame()
+        public void SaveGame(int index)
         {
-            //determins who is set to play when this save is loaded
+            bool response;
+            //determines who is set to play when this save is loaded
             int turn, nTurn;
             if (player1.isTurn == true)
             {
@@ -467,32 +540,86 @@ namespace GameBoardTest
             }
 
             //creates new object of save slot
-            SaveSlot Save = new SaveSlot();
+            SaveSlot Save1 = new SaveSlot();
             //stores the necessary game info
-            Save.player1Name = player1.name;
-            Save.player2Name = player2.name;
-            Save.currentPlayer = turn;
-            Save.nextPlayer = nTurn;
-            Save.data = gameBoardData;
+            Save1.player1Name = player1.name;
+            Save1.player2Name = player2.name;
+            Save1.currentPlayer = turn;
+            Save1.nextPlayer = nTurn;
+            Save1.data = gameBoardData;
+            Save1.name = "test";
+            
 
             //saves game state to json file
-            Save.SaveState();
+            if (Slots.saves[index].name == "empty")
+            {
+                Slots.saves[index] = Save1;
+                MessageBox.Show($"Game State Saved in Slot {index + 1}");
+
+                switch (index)
+                {
+                    case 0:
+                        load1.Enabled = true;
+                        break;
+                    case 1:
+                        load2.Enabled = true;
+                        break;
+                    case 2:
+                        load3.Enabled = true;
+                        break;
+                    case 3:
+                        load4.Enabled = true;
+                        break;
+                    case 4:
+                        load5.Enabled = true;
+                        break;
+                }
+                
+            }
+            else
+            {
+                response = SaveChoice($"Save {index + 1} already has data. Do you want to overwrite this save?");
+                if (response == true)
+                {
+                    Slots.saves[index] = Save1;
+                    MessageBox.Show($"Game State Saved in Slot {index + 1}");
+                }
+            }
+
+            
+
+            //access file
+            string filePath = "game_data.json";
+
+            //convert object to serialised version
+            string serialisedState = JsonConvert.SerializeObject(Slots.saves);
+
+            //write to the file
+            //this currently overwrites the data
+            File.WriteAllText(filePath, serialisedState);
 
 
         }
-        
+
         //new game
         public void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            bool save;
             //executes save choice
-            bool save = SaveChoice();
+            if(saveGameToolStripMenuItem.Enabled == true)
+            {
+                save = SaveChoice("You are ending a game in progress. Do you want to save?");
+            }
+            else
+            {
+                save = false;
+            }
+           
 
             //if user does want to save game
             if (save == true)
             {
-                SaveGame();
-                this.Close();
-
+                SaveGame(0);
             }
 
             //generate new board
@@ -547,28 +674,26 @@ namespace GameBoardTest
         }
 
         //load game
-        private void loadGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadGame(int index)
         {
-            //finds json file
-            string filePath = "saves.json";
-
-            //deserialises content in the json file
+            //retrieve data in json file
+            string filePath = "game_data.json";
             string stateData = File.ReadAllText(filePath);
-            SaveSlot LoadedState = JsonConvert.DeserializeObject<SaveSlot>(stateData);
+            Slots.saves = JsonConvert.DeserializeObject<List<SaveSlot>>(stateData);
 
-            //changes the values for the relevant game information
+            //Load given slot
+            SaveSlot LoadedSlot = Slots.saves[index];
 
-            //gamedata
-            gameBoardData = LoadedState.data;
+            gameBoardData = LoadedSlot.data;
 
             //player names
-            player1.name = LoadedState.player1Name;
+            player1.name = LoadedSlot.player1Name;
             lbl_name1.Text = player1.name;
-            player2.name = LoadedState.player2Name;
+            player2.name = LoadedSlot.player2Name;
             lbl_name2.Text = player2.name;
 
             //finds who was meant to play next
-            if (LoadedState.currentPlayer == 0)
+            if (LoadedSlot.currentPlayer == 0)
             {
                 player1.isTurn = true;
                 player2.isTurn = false;
@@ -583,21 +708,66 @@ namespace GameBoardTest
             _gameBoardGui.UpdateBoardGui(gameBoardData);
             lbl_ScoreOne.Text = player1.CalcScore(gameBoardData, rowNum, colNum).ToString();
             lbl_ScoreTwo.Text = player2.CalcScore(gameBoardData, rowNum, colNum).ToString();
-
         }
 
-        //save game
-        private void saveGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //saves game
-            SaveGame();
-            MessageBox.Show("Game Saved");
-        }
 
-        //unused for multiple save slots
+        //event handlers for the save slots
+
+        //saves in slot 1
         private void save1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveGame();
+            SaveGame(0);
+            
+        }
+
+        //saves in slot 2
+        private void save2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveGame(1);
+        }
+        
+        //saves in slot 3
+        private void save3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveGame(2);
+        }
+
+        //saves in slot 4
+        private void save4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveGame(3);
+        }
+
+        //saves in slot 5
+        private void save5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveGame(4);
+        }
+
+        //loads appropriate slot
+        private void load1_Click(object sender, EventArgs e)
+        {
+            LoadGame(0);
+        }
+
+        private void load2_Click(object sender, EventArgs e)
+        {
+            LoadGame(1);
+        }
+
+        private void load3_Click(object sender, EventArgs e)
+        {
+            LoadGame(2);
+        }
+
+        private void load4_Click(object sender, EventArgs e)
+        {
+            LoadGame(3);
+        }
+
+        private void load5_Click(object sender, EventArgs e)
+        {
+            LoadGame(4);
         }
     }
 

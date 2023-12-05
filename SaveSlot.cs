@@ -25,5 +25,8 @@ namespace Assignment_oNeillo
 
         //name of slot
         public string name { get; set; }
+
+        //empty or not
+        public bool empty { get; set; }
     }
 }

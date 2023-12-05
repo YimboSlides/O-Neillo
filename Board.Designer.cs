@@ -59,6 +59,7 @@
             pictureBox1 = new PictureBox();
             lbl_ScoreTwo = new Label();
             lbl_name2 = new Label();
+            changeNamesToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             pnl_info.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbox_arrow2).BeginInit();
@@ -119,35 +120,35 @@
             // save1ToolStripMenuItem
             // 
             save1ToolStripMenuItem.Name = "save1ToolStripMenuItem";
-            save1ToolStripMenuItem.Size = new Size(359, 44);
+            save1ToolStripMenuItem.Size = new Size(217, 44);
             save1ToolStripMenuItem.Text = "Save 1";
             save1ToolStripMenuItem.Click += save1ToolStripMenuItem_Click;
             // 
             // save2ToolStripMenuItem
             // 
             save2ToolStripMenuItem.Name = "save2ToolStripMenuItem";
-            save2ToolStripMenuItem.Size = new Size(359, 44);
+            save2ToolStripMenuItem.Size = new Size(217, 44);
             save2ToolStripMenuItem.Text = "Save 2";
             save2ToolStripMenuItem.Click += save2ToolStripMenuItem_Click;
             // 
             // save3ToolStripMenuItem
             // 
             save3ToolStripMenuItem.Name = "save3ToolStripMenuItem";
-            save3ToolStripMenuItem.Size = new Size(359, 44);
+            save3ToolStripMenuItem.Size = new Size(217, 44);
             save3ToolStripMenuItem.Text = "Save 3";
             save3ToolStripMenuItem.Click += save3ToolStripMenuItem_Click;
             // 
             // save4ToolStripMenuItem
             // 
             save4ToolStripMenuItem.Name = "save4ToolStripMenuItem";
-            save4ToolStripMenuItem.Size = new Size(359, 44);
+            save4ToolStripMenuItem.Size = new Size(217, 44);
             save4ToolStripMenuItem.Text = "Save 4";
             save4ToolStripMenuItem.Click += save4ToolStripMenuItem_Click;
             // 
             // save5ToolStripMenuItem
             // 
             save5ToolStripMenuItem.Name = "save5ToolStripMenuItem";
-            save5ToolStripMenuItem.Size = new Size(359, 44);
+            save5ToolStripMenuItem.Size = new Size(217, 44);
             save5ToolStripMenuItem.Text = "Save 5";
             save5ToolStripMenuItem.Click += save5ToolStripMenuItem_Click;
             // 
@@ -209,7 +210,7 @@
             // 
             // settingsToolStripMenuItem
             // 
-            settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { informationPanelToolStripMenuItem, speakToolStripMenuItem });
+            settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { informationPanelToolStripMenuItem, speakToolStripMenuItem, changeNamesToolStripMenuItem });
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             settingsToolStripMenuItem.Size = new Size(120, 38);
             settingsToolStripMenuItem.Text = "Settings";
@@ -324,6 +325,13 @@
             lbl_name2.Text = "Player2";
             lbl_name2.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // changeNamesToolStripMenuItem
+            // 
+            changeNamesToolStripMenuItem.Name = "changeNamesToolStripMenuItem";
+            changeNamesToolStripMenuItem.Size = new Size(359, 44);
+            changeNamesToolStripMenuItem.Text = "Change Names";
+            changeNamesToolStripMenuItem.Click += changeNamesToolStripMenuItem_Click;
+            // 
             // Board
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -380,5 +388,6 @@
         private ToolStripMenuItem load3;
         private ToolStripMenuItem load4;
         private ToolStripMenuItem load5;
+        private ToolStripMenuItem changeNamesToolStripMenuItem;
     }
 }

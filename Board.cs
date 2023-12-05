@@ -19,10 +19,11 @@ namespace GameBoardTest
 
         //List of SaveSlots
         SaveList Slots = new SaveList();
-        
+
         //other variables for game over and TTS
         bool gameOver = false;
         bool speaking = false;
+        bool gameBegun = false;
 
         //text for messages to user
         string invalidMsg = "That move is invalid";
@@ -49,13 +50,14 @@ namespace GameBoardTest
         //whether the data has been saved or not
         public Board(string name1, string name2)
         {
-            
+
             InitializeComponent();
-            
+
             //assigns player names
             player1.name = name1;
             player2.name = name2;
 
+           
             
             //establishes board size
             Point top = new Point(75, 75);
@@ -100,7 +102,8 @@ namespace GameBoardTest
             Save.player2Name = player2.name;
             Save.currentPlayer = 0;
             Save.nextPlayer = 1;
-            Save.name = "empty";
+            Save.name = "Empty";
+            Save.empty = true;
 
             string filePath = "game_data.json";
 
@@ -114,11 +117,11 @@ namespace GameBoardTest
                 SaveList tempSaves = new SaveList();
                 tempSaves.saves = new List<SaveSlot>();
 
-                for(int i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     //adds 'empty' save slot
                     tempSaves.saves.Add(Save);
-                    
+
                 }
                 //converts to Json data, writes to file
                 string serialisedState = JsonConvert.SerializeObject(tempSaves.saves);
@@ -136,7 +139,7 @@ namespace GameBoardTest
             if (Slots.saves.Count() < 5)
             {
                 int count;
-              
+
                 count = Slots.saves.Count();
 
                 for (int i = count; i < 5; i++)
@@ -146,28 +149,39 @@ namespace GameBoardTest
             }
 
             //cannot load a save that are 'empty'
-            if (Slots.saves[0].name == "empty")
+            if (Slots.saves[0].empty == true)
             {
                 load1.Enabled = false;
             }
-            if (Slots.saves[1].name == "empty")
+            if (Slots.saves[1].empty == true)
             {
                 load2.Enabled = false;
             }
-            if (Slots.saves[2].name == "empty")
+            if (Slots.saves[2].empty == true)
             {
                 load3.Enabled = false;
             }
-            if (Slots.saves[3].name == "empty")
+            if (Slots.saves[3].empty == true)
             {
                 load4.Enabled = false;
             }
-            if (Slots.saves[4].name == "empty")
+            if (Slots.saves[4].empty == true)
             {
                 load5.Enabled = false;
             }
 
+            //Sets the save names on the GUI to whatever they have been named
+            save1ToolStripMenuItem.Text = $"Save 1 - {Slots.saves[0].name}";
+            save2ToolStripMenuItem.Text = $"Save 2 - {Slots.saves[1].name}";
+            save3ToolStripMenuItem.Text = $"Save 3 - {Slots.saves[2].name}";
+            save4ToolStripMenuItem.Text = $"Save 4 - {Slots.saves[3].name}";
+            save5ToolStripMenuItem.Text = $"Save 5 - {Slots.saves[4].name}";
 
+            load1.Text = $"Save 1 - {Slots.saves[0].name}";
+            load2.Text = $"Save 2 - {Slots.saves[1].name}";
+            load3.Text = $"Save 3 - {Slots.saves[2].name}";
+            load4.Text = $"Save 4 - {Slots.saves[3].name}";
+            load5.Text = $"Save 5 - {Slots.saves[4].name}";
 
         }
 
@@ -230,6 +244,7 @@ namespace GameBoardTest
         //handles when tile is clicked
         private void GameTileClicked(object sender, EventArgs e)
         {
+            gameBegun = true;
             saveGameToolStripMenuItem.Enabled = true;
             //grabs the position user has clicked
             int selectedRow = _gameBoardGui.GetCurrentRowIndex(sender);
@@ -391,6 +406,7 @@ namespace GameBoardTest
             {
                 //game is over
                 gameOver = true;
+                gameBegun = false;
                 //take score
                 int p1Score = int.Parse(lbl_ScoreOne.Text);
                 int p2Score = int.Parse(lbl_ScoreTwo.Text);
@@ -451,7 +467,34 @@ namespace GameBoardTest
         //event handler for exit button
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //closes form
+            //bool to check if they want to save
+            bool save;
+
+            //checks if game in progress
+            if (gameBegun == true)
+            {
+                save = SaveChoice("You are ending a game in progress. Do you want to save?");
+            }
+            else
+            {
+                save = false;
+            }
+
+            //if user wants to save 
+            if (save == true)
+            {
+                //gets user to choose a slot
+                Select_Slot test = new Select_Slot(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
+                test.FormBorderStyle = FormBorderStyle.FixedDialog;
+                test.MaximizeBox = false;
+                test.MinimizeBox = false;
+                test.ShowDialog();
+
+                //replaces that slot with saved data
+                SaveGame(test.slot);
+            }
+
+            //close form
             this.Close();
         }
 
@@ -525,88 +568,133 @@ namespace GameBoardTest
         //save game
         public void SaveGame(int index)
         {
+            //boolean for finding if they want to save
             bool response;
-            //determines who is set to play when this save is loaded
-            int turn, nTurn;
-            if (player1.isTurn == true)
+
+            //boolean for allowing save to be loaded
+            bool enable;
+
+            //is the slot empty
+            if (Slots.saves[index].empty != true)
             {
-                turn = 0;
-                nTurn = 1;
+                //ask if they want to overwrite data (returns boolean)
+                response = SaveChoice($"Save {index + 1} already has data. Do you want to overwrite this save?");
+                enable = false;
             }
             else
             {
-                turn = 1;
-                nTurn = 0;
+                //if data is empty
+                response = true;
+
+                //data should now be able to be loaded
+                enable = true;
             }
 
-            //creates new object of save slot
-            SaveSlot Save1 = new SaveSlot();
-            //stores the necessary game info
-            Save1.player1Name = player1.name;
-            Save1.player2Name = player2.name;
-            Save1.currentPlayer = turn;
-            Save1.nextPlayer = nTurn;
-            Save1.data = gameBoardData;
-            Save1.name = "test";
-            
-
-            //saves game state to json file
-            if (Slots.saves[index].name == "empty")
+            if(response == true)
             {
-                Slots.saves[index] = Save1;
-                MessageBox.Show($"Game State Saved in Slot {index + 1}");
+                //determines who is set to play when this save is loaded
+                int turn, nTurn;
+                if (player1.isTurn == true)
+                {
+                    turn = 0;
+                    nTurn = 1;
+                }
+                else
+                {
+                    turn = 1;
+                    nTurn = 0;
+                }
 
+                //creates new object of save slot
+                SaveSlot Save1 = new SaveSlot();
+                //stores the necessary game info
+                Save1.player1Name = player1.name;
+                Save1.player2Name = player2.name;
+                Save1.currentPlayer = turn;
+                Save1.nextPlayer = nTurn;
+                Save1.data = gameBoardData;
+                Save1.empty = false;
+
+                //Name the save
+                Save_Name Name = new Save_Name();
+                Name.FormBorderStyle = FormBorderStyle.FixedDialog;
+                Name.MaximizeBox = false;
+                Name.MinimizeBox = false;
+                Name.ShowDialog();
+
+                Save1.name = Name.saveName;
+
+                Slots.saves[index] = Save1;
+
+                //access file
+                string filePath = "game_data.json";
+
+                //convert object to serialised version
+                string serialisedState = JsonConvert.SerializeObject(Slots.saves);
+
+                //write to the file
+                //this currently overwrites the data
+                File.WriteAllText(filePath, serialisedState);
+
+                //checks slot that was chosen
                 switch (index)
                 {
                     case 0:
-                        load1.Enabled = true;
+                        //sets the GUI name
+                        save1ToolStripMenuItem.Text = $"Save 1 - {Slots.saves[0].name}";
+                        load1.Text = $"Save 1 - {Slots.saves[0].name}";
+
+                        //if the save was previously empty
+                        if (enable == true)
+                        {
+                            //allow it to be loaded
+                            load1.Enabled = true;
+                        }
                         break;
                     case 1:
-                        load2.Enabled = true;
+                        save2ToolStripMenuItem.Text = $"Save 2 - {Slots.saves[1].name}";
+                        load2.Text = $"Save 1 - {Slots.saves[1].name}";
+                        if (enable == true)
+                        {
+                            load2.Enabled = true;
+                        }
                         break;
                     case 2:
-                        load3.Enabled = true;
+                        save3ToolStripMenuItem.Text = $"Save 3 - {Slots.saves[2].name}";
+                        load3.Text = $"Save 1 - {Slots.saves[2].name}";
+                        if (enable == true)
+                        {
+                            load3.Enabled = true;
+                        }
                         break;
                     case 3:
-                        load4.Enabled = true;
+                        save4ToolStripMenuItem.Text = $"Save 4 - {Slots.saves[3].name}";
+                        load4.Text = $"Save 1 - {Slots.saves[3].name}";
+                        if (enable == true)
+                        {
+                            load4.Enabled = true;
+                        }
                         break;
                     case 4:
-                        load5.Enabled = true;
+                        save5ToolStripMenuItem.Text = $"Save 5 - {Slots.saves[4].name}";
+                        load5.Text = $"Save 1 - {Slots.saves[4].name}";
+                        if (enable == true)
+                        {
+                            load5.Enabled = true;
+                        }
                         break;
                 }
-                
             }
-            else
-            {
-                response = SaveChoice($"Save {index + 1} already has data. Do you want to overwrite this save?");
-                if (response == true)
-                {
-                    Slots.saves[index] = Save1;
-                    MessageBox.Show($"Game State Saved in Slot {index + 1}");
-                }
-            }
-
-            
-
-            //access file
-            string filePath = "game_data.json";
-
-            //convert object to serialised version
-            string serialisedState = JsonConvert.SerializeObject(Slots.saves);
-
-            //write to the file
-            //this currently overwrites the data
-            File.WriteAllText(filePath, serialisedState);
-
 
         }
 
         //new game
         public void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             bool save;
             //executes save choice
-            if(saveGameToolStripMenuItem.Enabled == true)
+            if (gameBegun == true)
             {
                 save = SaveChoice("You are ending a game in progress. Do you want to save?");
             }
@@ -614,12 +702,18 @@ namespace GameBoardTest
             {
                 save = false;
             }
-           
+
 
             //if user does want to save game
             if (save == true)
             {
-                SaveGame(0);
+                Select_Slot test = new Select_Slot(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
+                test.FormBorderStyle = FormBorderStyle.FixedDialog;
+                test.MaximizeBox = false;
+                test.MinimizeBox = false;
+                test.ShowDialog();
+
+                SaveGame(test.slot);
             }
 
             //generate new board
@@ -635,6 +729,10 @@ namespace GameBoardTest
 
             pbox_arrow1.Visible = true;
             pbox_arrow2.Visible = false;
+
+            //resets save option
+            gameBegun = false;
+            saveGameToolStripMenuItem.Enabled = false;
 
             //updates the gameboard and score count
             _gameBoardGui.UpdateBoardGui(gameBoardData);
@@ -697,19 +795,56 @@ namespace GameBoardTest
             {
                 player1.isTurn = true;
                 player2.isTurn = false;
+
+                //resets arrows
+                pbox_arrow1.Visible = true;
+                pbox_arrow2.Visible = false;
             }
             else
             {
                 player2.isTurn = true;
                 player1.isTurn = false;
+
+                //resets arrows
+                pbox_arrow1.Visible = false;
+                pbox_arrow2.Visible = true;
             }
 
             //updates the board, updates score
             _gameBoardGui.UpdateBoardGui(gameBoardData);
+
+            
             lbl_ScoreOne.Text = player1.CalcScore(gameBoardData, rowNum, colNum).ToString();
             lbl_ScoreTwo.Text = player2.CalcScore(gameBoardData, rowNum, colNum).ToString();
         }
 
+        //logic to change names mid game
+        private (string, string) ChangeName()
+        {
+            //new form
+            Enter_Names ChangeName = new Enter_Names();
+            //tuple
+            (string, string) names;
+            
+            ChangeName.FormBorderStyle = FormBorderStyle.FixedDialog;
+            ChangeName.MaximizeBox = false;
+            ChangeName.MinimizeBox = false;
+            ChangeName.ShowDialog();
+
+            //if the names have been changed
+            if(ChangeName.change == true)
+            {
+                names.Item1 = ChangeName.name1;
+                names.Item2 = ChangeName.name2;
+            }
+            else
+            {
+                //if cancel pressed
+                names.Item1 = player1.name;
+                names.Item2 = player2.name;
+            }
+            return names;
+        }
 
         //event handlers for the save slots
 
@@ -717,7 +852,7 @@ namespace GameBoardTest
         private void save1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveGame(0);
-            
+
         }
 
         //saves in slot 2
@@ -725,7 +860,7 @@ namespace GameBoardTest
         {
             SaveGame(1);
         }
-        
+
         //saves in slot 3
         private void save3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -768,6 +903,19 @@ namespace GameBoardTest
         private void load5_Click(object sender, EventArgs e)
         {
             LoadGame(4);
+        }
+
+        //Option for user to change names after the start screen
+        private void changeNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (string, string) names = ChangeName();
+
+            player1.name = names.Item1;
+            player2.name = names.Item2;
+
+            lbl_name1.Text = player1.name;
+            lbl_name2.Text = player2.name;
+
         }
     }
 

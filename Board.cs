@@ -107,6 +107,12 @@ namespace GameBoardTest
 
             string filePath = "game_data.json";
 
+            //creates file if it doesnt exist
+            if (File.Exists(filePath) != true)
+            {
+                File.WriteAllText(filePath, "");
+            }
+
             //deserialises content in the json file
             string stateData = File.ReadAllText(filePath);
 
@@ -653,7 +659,7 @@ namespace GameBoardTest
                         break;
                     case 1:
                         save2ToolStripMenuItem.Text = $"Save 2 - {Slots.saves[1].name}";
-                        load2.Text = $"Save 1 - {Slots.saves[1].name}";
+                        load2.Text = $"Save 2 - {Slots.saves[1].name}";
                         if (enable == true)
                         {
                             load2.Enabled = true;
@@ -661,7 +667,7 @@ namespace GameBoardTest
                         break;
                     case 2:
                         save3ToolStripMenuItem.Text = $"Save 3 - {Slots.saves[2].name}";
-                        load3.Text = $"Save 1 - {Slots.saves[2].name}";
+                        load3.Text = $"Save 3 - {Slots.saves[2].name}";
                         if (enable == true)
                         {
                             load3.Enabled = true;
@@ -669,7 +675,7 @@ namespace GameBoardTest
                         break;
                     case 3:
                         save4ToolStripMenuItem.Text = $"Save 4 - {Slots.saves[3].name}";
-                        load4.Text = $"Save 1 - {Slots.saves[3].name}";
+                        load4.Text = $"Save 4 - {Slots.saves[3].name}";
                         if (enable == true)
                         {
                             load4.Enabled = true;
@@ -677,7 +683,7 @@ namespace GameBoardTest
                         break;
                     case 4:
                         save5ToolStripMenuItem.Text = $"Save 5 - {Slots.saves[4].name}";
-                        load5.Text = $"Save 1 - {Slots.saves[4].name}";
+                        load5.Text = $"Save 5 - {Slots.saves[4].name}";
                         if (enable == true)
                         {
                             load5.Enabled = true;

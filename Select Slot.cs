@@ -68,6 +68,7 @@ namespace Assignment_oNeillo
 
         private void cmbo_saveDrop_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //enables button when save chosen
             if (cmbo_saveDrop.Text != "Select Save")
             {
                 btn_submit.Enabled = true;

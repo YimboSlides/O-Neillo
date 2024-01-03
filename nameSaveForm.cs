@@ -12,14 +12,17 @@ namespace Assignment_oNeillo
 {
     public partial class nameSaveForm : Form
     {
+        //string to store name for save
         public string saveName;
         public nameSaveForm()
         {
             InitializeComponent();
         }
 
+        //on submit
         private void btn_submit_Click(object sender, EventArgs e)
         {
+            //is field empty
             if (string.IsNullOrWhiteSpace(txt_nameField.Text))
             {
                 DateTime currentTime = DateTime.Now;

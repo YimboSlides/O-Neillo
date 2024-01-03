@@ -17,7 +17,7 @@ namespace GameBoardTest
         const int rowNum = 8;
         const int colNum = 8;
 
-        //List of SaveSlots
+        //Creates a list of SaveSlots
         SaveList Slots = new SaveList();
 
         //other variables for game over and TTS
@@ -44,10 +44,7 @@ namespace GameBoardTest
         Player player1 = new Player(0, true, "Player1");
         Player player2 = new Player(1, false, "Player2");
 
-        //passses through 4 variables
-        //name for players
-        //data for board
-        //whether the data has been saved or not
+        //passes player names
         public boardForm(string name1, string name2)
         {
 
@@ -156,7 +153,8 @@ namespace GameBoardTest
                 }
             }
 
-            //cannot load a save that are 'empty'
+
+            //disables loading for slots that are empty
             if (Slots.saves[0].empty == true)
             {
                 load1.Enabled = false;
@@ -292,6 +290,7 @@ namespace GameBoardTest
                         //for text to speech
                         if (TTSstatus())
                         {
+                            //speaks the position to user
                             SpeechSynthesizer textToSpeech = new SpeechSynthesizer();
                             textToSpeech.Speak($"{player1.name} has placed a piece at {selectedRow} {selectedCol}");
                         }
@@ -492,14 +491,14 @@ namespace GameBoardTest
             if (save == true)
             {
                 //gets user to choose a slot
-                selectSlotForm test = new selectSlotForm(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
-                test.FormBorderStyle = FormBorderStyle.FixedDialog;
-                test.MaximizeBox = false;
-                test.MinimizeBox = false;
-                test.ShowDialog();
+                selectSlotForm slotChoice = new selectSlotForm(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
+                slotChoice.FormBorderStyle = FormBorderStyle.FixedDialog;
+                slotChoice.MaximizeBox = false;
+                slotChoice.MinimizeBox = false;
+                slotChoice.ShowDialog();
 
                 //replaces that slot with saved data
-                SaveGame(test.slot);
+                SaveGame(slotChoice.slot);
             }
 
             //close form
@@ -515,9 +514,10 @@ namespace GameBoardTest
             //uses the status tool
             bool result = TTSstatus();
 
+            //notifies user that it has been activated or deactivated
             if (result)
             {
-                //notifies user that it has been activated or deactivated
+                
                 textToSpeech.Speak("Text to speech enabled");
             }
             else
@@ -527,10 +527,9 @@ namespace GameBoardTest
 
         }
 
-        //tts status checker, user to determine if speech is needed
+        //tts status checker, user to determine if speech is enabled
         public bool TTSstatus()
         {
-            //checks to see if TTS is active
 
             //looks if it has been checked
             if (speakToolStripMenuItem.Checked)
@@ -548,8 +547,6 @@ namespace GameBoardTest
         //determines if game-in-progress must be saved
         public bool SaveChoice(string text)
         {
-            //gets intent from Save Menu
-            //save or new game
             bool saveGame = false;
 
             //if game is over
@@ -657,6 +654,7 @@ namespace GameBoardTest
 
                 Save1.name = Name.saveName;
 
+                //added save to list
                 Slots.saves[index] = Save1;
 
                 //access file
@@ -745,13 +743,14 @@ namespace GameBoardTest
             //if user does want to save game
             if (save == true)
             {
-                selectSlotForm test = new selectSlotForm(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
-                test.FormBorderStyle = FormBorderStyle.FixedDialog;
-                test.MaximizeBox = false;
-                test.MinimizeBox = false;
-                test.ShowDialog();
+                //gets user to select slot, passes slot names into drop down box
+                selectSlotForm slotChoice = new selectSlotForm(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
+                slotChoice.FormBorderStyle = FormBorderStyle.FixedDialog;
+                slotChoice.MaximizeBox = false;
+                slotChoice.MinimizeBox = false;
+                slotChoice.ShowDialog();
 
-                SaveGame(test.slot);
+                SaveGame(slotChoice.slot);
             }
 
             //generate new board
@@ -817,7 +816,7 @@ namespace GameBoardTest
             string stateData = File.ReadAllText(filePath);
             Slots.saves = JsonConvert.DeserializeObject<List<SaveSlot>>(stateData);
 
-            //Load given slot
+            //Load chosen slot
             SaveSlot LoadedSlot = Slots.saves[index];
 
             gameBoardData = LoadedSlot.data;

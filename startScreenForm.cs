@@ -18,7 +18,8 @@ namespace GameBoardTest
         //player names
         string name1;
         string name2;
-        
+
+
         public Start_Screen()
         {
             InitializeComponent();
@@ -51,20 +52,36 @@ namespace GameBoardTest
             }
             //opens a new O'Neillo game, passing through the player names
 
-
-            
-
             boardForm oNeillo = new boardForm(name1, name2);
-
             //adjusts form settings so that size cannot be changed
             oNeillo.FormBorderStyle = FormBorderStyle.FixedDialog;
             oNeillo.MaximizeBox = false;
             oNeillo.MinimizeBox = false;
             oNeillo.Show();
-
+            
 
         }
 
+        //attempt to solve issue where users can open multiple games repeatedly from start screen
+
+        /*
+        static bool IsFormOpen(boardForm form)
+        {
+            bool open = false;
+
+            FormCollection fc = Application.OpenForms;
+
+            foreach(Form frm in fc)
+            {
+                if(frm == form)
+                {
+                    open = true;
+                }
+            }
+
+            return open;
+        }
+        */
         //when the user presses the 'Quit' button
         private void btn_quit_Click(object sender, EventArgs e)
         {

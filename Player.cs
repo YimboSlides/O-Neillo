@@ -11,19 +11,17 @@ namespace GameBoardTest
     //this covers the game logic
     public class Player
     {
-        //a number of attributes
+        //attributes
         int score; //set for the player's score to display on screen
         int colour; //colour set to 1 or 0 (how white and black are referenced for the game data)
-        int opposite; //whatever the opposing colour is
+        int opposite; //opponents colour
         public bool isTurn; //determines turn order
         public string name; //name as given by user
         
-        public bool noMoves = false; //if player has any moves left, gameOver is true
+        public bool noMoves = false; //if player has any moves left
 
         //used to store the validation for each move in each direction
         (bool, List<List<int>>) testN, testS, testE, testW, testNE, testNW, testSE, testSW;
-        
-
         
 
         //basic constructor
@@ -46,7 +44,6 @@ namespace GameBoardTest
         }
 
         //checks if there are any valid moves left
-        //need to adjust so check takes place before moves
         public void CheckGameOver(int[,] arr)
         {
             //adjusts 'gameOver' based on if there are valid moves left
@@ -393,7 +390,9 @@ namespace GameBoardTest
             //pieces that need to flip
             return (valid, coords);
         }
-                
+        
+        //all other direction validators repeat above, but using different calculations to find the correct direction
+
         internal (bool, List<List<int>>) ValidSouth(int[,] arr, int row, int col)
         {
             bool valid = false;

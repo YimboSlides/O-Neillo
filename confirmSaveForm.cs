@@ -33,6 +33,7 @@ namespace Assignment_oNeillo
         //if 'No' is clicked
         public void btn_no_Click(object sender, EventArgs e)
         {
+            //will not save game
             saveGame = false;
             this.Close();
 
@@ -41,6 +42,7 @@ namespace Assignment_oNeillo
         //if 'yes' is clicked
         private void btn_yes_Click(object sender, EventArgs e)
         {
+            //will save game
             saveGame = true;
             this.Close();
         }

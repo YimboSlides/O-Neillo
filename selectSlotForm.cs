@@ -12,6 +12,8 @@ namespace Assignment_oNeillo
 {
     public partial class selectSlotForm : Form
     {
+        //this is used when saving from pressing new game or exit
+
         //slot number and list of save names
         public int slot;
         List<string> saveNames = new List<string>();

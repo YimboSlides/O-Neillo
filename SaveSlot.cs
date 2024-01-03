@@ -28,5 +28,10 @@ namespace Assignment_oNeillo
 
         //empty or not
         public bool empty { get; set; }
+
+        //store settings
+        public bool ttsActive { get; set; }
+
+        public bool panelActive { get; set; }
     }
 }

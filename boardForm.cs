@@ -104,6 +104,8 @@ namespace GameBoardTest
             Save.nextPlayer = 1;
             Save.name = "Empty";
             Save.empty = true;
+            Save.ttsActive = false;
+            Save.panelActive = true;
 
             string filePath = "game_data.json";
 
@@ -598,8 +600,11 @@ namespace GameBoardTest
 
             if (response == true)
             {
-                //determines who is set to play when this save is loaded
+                //determines play order, and status of settings
                 int turn, nTurn;
+                bool tts, panel;
+
+                //play order
                 if (player1.isTurn == true)
                 {
                     turn = 0;
@@ -611,6 +616,26 @@ namespace GameBoardTest
                     nTurn = 0;
                 }
 
+                //text to speech
+                if (TTSstatus())
+                {
+                    tts = true;
+                }
+                else
+                {
+                    tts = false;
+                }
+
+                //info panel
+                if (informationPanelToolStripMenuItem.Checked == true)
+                {
+                    panel = true;
+                }
+                else
+                {
+                    panel = false;
+                }
+
                 //creates new object of save slot
                 SaveSlot Save1 = new SaveSlot();
                 //stores the necessary game info
@@ -620,6 +645,8 @@ namespace GameBoardTest
                 Save1.nextPlayer = nTurn;
                 Save1.data = gameBoardData;
                 Save1.empty = false;
+                Save1.ttsActive = tts;
+                Save1.panelActive = panel;
 
                 //Name the save
                 nameSaveForm Name = new nameSaveForm();
@@ -819,6 +846,26 @@ namespace GameBoardTest
                 //resets arrows
                 pbox_arrow1.Visible = false;
                 pbox_arrow2.Visible = true;
+            }
+
+            //restore settings
+            
+            //restores text to speech status
+            if(LoadedSlot.ttsActive == true)
+            {
+                speakToolStripMenuItem.Checked = true;
+            }
+
+            //restores information panel status
+            if(LoadedSlot.panelActive == true)
+            {
+                informationPanelToolStripMenuItem.Checked = true;
+                pnl_info.Visible = true;
+            }
+            else
+            {
+                informationPanelToolStripMenuItem.Checked = false;
+                pnl_info.Visible = false;
             }
 
             //updates the board, updates score

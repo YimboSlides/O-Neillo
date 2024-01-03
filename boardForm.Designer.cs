@@ -1,6 +1,6 @@
 ﻿namespace GameBoardTest
 {
-    partial class Board
+    partial class boardForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Board));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(boardForm));
             lbl_ScoreOne = new Label();
             lbl_name1 = new Label();
             menuStrip1 = new MenuStrip();
@@ -50,6 +50,7 @@
             settingsToolStripMenuItem = new ToolStripMenuItem();
             informationPanelToolStripMenuItem = new ToolStripMenuItem();
             speakToolStripMenuItem = new ToolStripMenuItem();
+            changeNamesToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             pnl_info = new Panel();
@@ -59,7 +60,6 @@
             pictureBox1 = new PictureBox();
             lbl_ScoreTwo = new Label();
             lbl_name2 = new Label();
-            changeNamesToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             pnl_info.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbox_arrow2).BeginInit();
@@ -98,7 +98,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { gameToolStripMenuItem, settingsToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1483, 42);
+            menuStrip1.Size = new Size(1483, 40);
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -106,7 +106,7 @@
             // 
             gameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { saveGameToolStripMenuItem, loadGameToolStripMenuItem, newGameToolStripMenuItem, exitToolStripMenuItem });
             gameToolStripMenuItem.Name = "gameToolStripMenuItem";
-            gameToolStripMenuItem.Size = new Size(96, 38);
+            gameToolStripMenuItem.Size = new Size(96, 36);
             gameToolStripMenuItem.Text = "Game";
             // 
             // saveGameToolStripMenuItem
@@ -114,7 +114,7 @@
             saveGameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { save1ToolStripMenuItem, save2ToolStripMenuItem, save3ToolStripMenuItem, save4ToolStripMenuItem, save5ToolStripMenuItem });
             saveGameToolStripMenuItem.Enabled = false;
             saveGameToolStripMenuItem.Name = "saveGameToolStripMenuItem";
-            saveGameToolStripMenuItem.Size = new Size(359, 44);
+            saveGameToolStripMenuItem.Size = new Size(283, 44);
             saveGameToolStripMenuItem.Text = "Save Game";
             // 
             // save1ToolStripMenuItem
@@ -156,55 +156,55 @@
             // 
             loadGameToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { load1, load2, load3, load4, load5 });
             loadGameToolStripMenuItem.Name = "loadGameToolStripMenuItem";
-            loadGameToolStripMenuItem.Size = new Size(359, 44);
+            loadGameToolStripMenuItem.Size = new Size(283, 44);
             loadGameToolStripMenuItem.Text = "Load Game";
             // 
             // load1
             // 
             load1.Name = "load1";
-            load1.Size = new Size(359, 44);
+            load1.Size = new Size(217, 44);
             load1.Text = "Save 1";
             load1.Click += load1_Click;
             // 
             // load2
             // 
             load2.Name = "load2";
-            load2.Size = new Size(359, 44);
+            load2.Size = new Size(217, 44);
             load2.Text = "Save 2";
             load2.Click += load2_Click;
             // 
             // load3
             // 
             load3.Name = "load3";
-            load3.Size = new Size(359, 44);
+            load3.Size = new Size(217, 44);
             load3.Text = "Save 3";
             load3.Click += load3_Click;
             // 
             // load4
             // 
             load4.Name = "load4";
-            load4.Size = new Size(359, 44);
+            load4.Size = new Size(217, 44);
             load4.Text = "Save 4";
             load4.Click += load4_Click;
             // 
             // load5
             // 
             load5.Name = "load5";
-            load5.Size = new Size(359, 44);
+            load5.Size = new Size(217, 44);
             load5.Text = "Save 5";
             load5.Click += load5_Click;
             // 
             // newGameToolStripMenuItem
             // 
             newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            newGameToolStripMenuItem.Size = new Size(359, 44);
+            newGameToolStripMenuItem.Size = new Size(283, 44);
             newGameToolStripMenuItem.Text = "New Game";
             newGameToolStripMenuItem.Click += newGameToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(359, 44);
+            exitToolStripMenuItem.Size = new Size(283, 44);
             exitToolStripMenuItem.Text = "Exit to Menu";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -212,7 +212,7 @@
             // 
             settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { informationPanelToolStripMenuItem, speakToolStripMenuItem, changeNamesToolStripMenuItem });
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(120, 38);
+            settingsToolStripMenuItem.Size = new Size(120, 36);
             settingsToolStripMenuItem.Text = "Settings";
             // 
             // informationPanelToolStripMenuItem
@@ -221,7 +221,7 @@
             informationPanelToolStripMenuItem.CheckOnClick = true;
             informationPanelToolStripMenuItem.CheckState = CheckState.Checked;
             informationPanelToolStripMenuItem.Name = "informationPanelToolStripMenuItem";
-            informationPanelToolStripMenuItem.Size = new Size(359, 44);
+            informationPanelToolStripMenuItem.Size = new Size(336, 44);
             informationPanelToolStripMenuItem.Text = "Information Panel";
             informationPanelToolStripMenuItem.Click += informationPanelToolStripMenuItem_Click;
             // 
@@ -229,15 +229,22 @@
             // 
             speakToolStripMenuItem.CheckOnClick = true;
             speakToolStripMenuItem.Name = "speakToolStripMenuItem";
-            speakToolStripMenuItem.Size = new Size(359, 44);
+            speakToolStripMenuItem.Size = new Size(336, 44);
             speakToolStripMenuItem.Text = "Speak";
             speakToolStripMenuItem.Click += speakToolStripMenuItem_Click;
+            // 
+            // changeNamesToolStripMenuItem
+            // 
+            changeNamesToolStripMenuItem.Name = "changeNamesToolStripMenuItem";
+            changeNamesToolStripMenuItem.Size = new Size(336, 44);
+            changeNamesToolStripMenuItem.Text = "Change Names";
+            changeNamesToolStripMenuItem.Click += changeNamesToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
             helpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new Size(84, 38);
+            helpToolStripMenuItem.Size = new Size(84, 36);
             helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
@@ -325,13 +332,6 @@
             lbl_name2.Text = "Player2";
             lbl_name2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // changeNamesToolStripMenuItem
-            // 
-            changeNamesToolStripMenuItem.Name = "changeNamesToolStripMenuItem";
-            changeNamesToolStripMenuItem.Size = new Size(359, 44);
-            changeNamesToolStripMenuItem.Text = "Change Names";
-            changeNamesToolStripMenuItem.Click += changeNamesToolStripMenuItem_Click;
-            // 
             // Board
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -344,7 +344,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(6);
             Name = "Board";
-            Text = "O'Neillo";
+            Text = "O'Neillo Game";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             pnl_info.ResumeLayout(false);

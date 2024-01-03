@@ -29,7 +29,7 @@ namespace GameBoardTest
         {
             
             //checks the input field for player names
-            if (string.IsNullOrWhiteSpace(txt_p1_name.Text))
+            if (string.IsNullOrWhiteSpace(txt_p1Name.Text))
             {
                 //if this is empty, use the default name 'Player1'
                 name1 = "Player1";
@@ -37,24 +37,24 @@ namespace GameBoardTest
             else
             {
                 //otherwise, take whatever the user has entered
-                name1 = txt_p1_name.Text;
+                name1 = txt_p1Name.Text;
             }
 
-            //above code for player2
-            if (string.IsNullOrWhiteSpace(txt_p2_name.Text))
+            //above code but for player2
+            if (string.IsNullOrWhiteSpace(txt_p2Name.Text))
             {
                 name2 = "Player2";
             }
             else
             {
-                name2 = txt_p2_name.Text;
+                name2 = txt_p2Name.Text;
             }
             //opens a new O'Neillo game, passing through the player names
 
 
             
 
-            Board oNeillo = new Board(name1, name2);
+            boardForm oNeillo = new boardForm(name1, name2);
 
             //adjusts form settings so that size cannot be changed
             oNeillo.FormBorderStyle = FormBorderStyle.FixedDialog;

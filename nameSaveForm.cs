@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace Assignment_oNeillo
 {
-    public partial class Save_Name : Form
+    public partial class nameSaveForm : Form
     {
         public string saveName;
-        public Save_Name()
+        public nameSaveForm()
         {
             InitializeComponent();
         }
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txt_saveName.Text))
+            if (string.IsNullOrWhiteSpace(txt_nameField.Text))
             {
                 DateTime currentTime = DateTime.Now;
                 //if this is empty, use the current date and time
@@ -29,7 +29,7 @@ namespace Assignment_oNeillo
             else
             {
                 //otherwise, take whatever the user has entered
-                this.saveName = txt_saveName.Text;
+                this.saveName = txt_nameField.Text;
             }
 
             this.Close();

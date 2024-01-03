@@ -13,25 +13,25 @@ using GameBoardTest;
 namespace Assignment_oNeillo
 {
     //class for the save notice form
-    public partial class Save : Form
-    {   
+    public partial class confirmSaveForm : Form
+    {
         //bool for if user wants to save game-in-progress
         public bool saveGame;
 
         //constructor
         //accepts message, name for button1, name for button2
-        public Save(string message, string btn1Text, string btn2Text)
+        public confirmSaveForm(string message, string btn1Text, string btn2Text)
         {
             //create box
             InitializeComponent();
-            this.txt_Save.Text = message;
-            this.btn_saveGame.Text = btn1Text;
-            this.btn_newGame.Text = btn2Text;
+            this.txt_saveMsg.Text = message;
+            this.btn_yes.Text = btn1Text;
+            this.btn_no.Text = btn2Text;
 
         }
-        
+
         //if 'No' is clicked
-        public void btn_newGame_Click(object sender, EventArgs e)
+        public void btn_no_Click(object sender, EventArgs e)
         {
             saveGame = false;
             this.Close();
@@ -39,10 +39,12 @@ namespace Assignment_oNeillo
         }
 
         //if 'yes' is clicked
-        private void btn_SaveGame_Click(object sender, EventArgs e)
+        private void btn_yes_Click(object sender, EventArgs e)
         {
             saveGame = true;
             this.Close();
         }
+
+        
     }
 }

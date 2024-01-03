@@ -1,6 +1,6 @@
 ﻿namespace Assignment_oNeillo
 {
-    partial class Enter_Names
+    partial class changeNamesForm
     {
         /// <summary>
         /// Required designer variable.

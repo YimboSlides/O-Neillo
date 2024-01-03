@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Assignment_oNeillo
 {
-    //simple class
     public class SaveList
     {
         //one attribute, a list of SaveSlots

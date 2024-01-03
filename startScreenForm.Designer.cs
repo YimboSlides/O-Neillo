@@ -29,54 +29,54 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Start_Screen));
-            lbl_Player1 = new Label();
-            lbl_Player2 = new Label();
-            txt_p1_name = new TextBox();
-            txt_p2_name = new TextBox();
+            lbl_player1 = new Label();
+            lbl_player2 = new Label();
+            txt_p1Name = new TextBox();
+            txt_p2Name = new TextBox();
             btn_start = new Button();
             btn_quit = new Button();
-            lbl_Title = new Label();
+            lbl_title = new Label();
             SuspendLayout();
             // 
-            // lbl_Player1
+            // lbl_player1
             // 
-            lbl_Player1.AutoSize = true;
-            lbl_Player1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl_Player1.Location = new Point(386, 254);
-            lbl_Player1.Margin = new Padding(6, 0, 6, 0);
-            lbl_Player1.Name = "lbl_Player1";
-            lbl_Player1.Size = new Size(217, 72);
-            lbl_Player1.TabIndex = 0;
-            lbl_Player1.Text = "Player 1";
-            lbl_Player1.TextAlign = ContentAlignment.MiddleCenter;
+            lbl_player1.AutoSize = true;
+            lbl_player1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl_player1.Location = new Point(386, 254);
+            lbl_player1.Margin = new Padding(6, 0, 6, 0);
+            lbl_player1.Name = "lbl_player1";
+            lbl_player1.Size = new Size(217, 72);
+            lbl_player1.TabIndex = 0;
+            lbl_player1.Text = "Player 1";
+            lbl_player1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lbl_Player2
+            // lbl_player2
             // 
-            lbl_Player2.AutoSize = true;
-            lbl_Player2.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
-            lbl_Player2.Location = new Point(804, 254);
-            lbl_Player2.Margin = new Padding(6, 0, 6, 0);
-            lbl_Player2.Name = "lbl_Player2";
-            lbl_Player2.Size = new Size(217, 72);
-            lbl_Player2.TabIndex = 1;
-            lbl_Player2.Text = "Player 2";
-            lbl_Player2.TextAlign = ContentAlignment.MiddleCenter;
+            lbl_player2.AutoSize = true;
+            lbl_player2.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl_player2.Location = new Point(804, 254);
+            lbl_player2.Margin = new Padding(6, 0, 6, 0);
+            lbl_player2.Name = "lbl_player2";
+            lbl_player2.Size = new Size(217, 72);
+            lbl_player2.TabIndex = 1;
+            lbl_player2.Text = "Player 2";
+            lbl_player2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // txt_p1_name
+            // txt_p1Name
             // 
-            txt_p1_name.Location = new Point(386, 339);
-            txt_p1_name.Margin = new Padding(6);
-            txt_p1_name.Name = "txt_p1_name";
-            txt_p1_name.Size = new Size(203, 39);
-            txt_p1_name.TabIndex = 2;
+            txt_p1Name.Location = new Point(386, 339);
+            txt_p1Name.Margin = new Padding(6);
+            txt_p1Name.Name = "txt_p1Name";
+            txt_p1Name.Size = new Size(203, 39);
+            txt_p1Name.TabIndex = 2;
             // 
-            // txt_p2_name
+            // txt_p2Name
             // 
-            txt_p2_name.Location = new Point(804, 332);
-            txt_p2_name.Margin = new Padding(6);
-            txt_p2_name.Name = "txt_p2_name";
-            txt_p2_name.Size = new Size(203, 39);
-            txt_p2_name.TabIndex = 3;
+            txt_p2Name.Location = new Point(804, 332);
+            txt_p2Name.Margin = new Padding(6);
+            txt_p2Name.Name = "txt_p2Name";
+            txt_p2Name.Size = new Size(203, 39);
+            txt_p2Name.TabIndex = 3;
             // 
             // btn_start
             // 
@@ -108,16 +108,16 @@
             btn_quit.UseVisualStyleBackColor = false;
             btn_quit.Click += btn_quit_Click;
             // 
-            // lbl_Title
+            // lbl_title
             // 
-            lbl_Title.AutoSize = true;
-            lbl_Title.Font = new Font("Segoe UI", 25F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_Title.Location = new Point(553, 129);
-            lbl_Title.Name = "lbl_Title";
-            lbl_Title.Size = new Size(296, 89);
-            lbl_Title.TabIndex = 6;
-            lbl_Title.Text = "O'Neillo";
-            lbl_Title.TextAlign = ContentAlignment.MiddleCenter;
+            lbl_title.AutoSize = true;
+            lbl_title.Font = new Font("Segoe UI", 25F, FontStyle.Bold, GraphicsUnit.Point);
+            lbl_title.Location = new Point(553, 129);
+            lbl_title.Name = "lbl_title";
+            lbl_title.Size = new Size(296, 89);
+            lbl_title.TabIndex = 6;
+            lbl_title.Text = "O'Neillo";
+            lbl_title.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Start_Screen
             // 
@@ -125,13 +125,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(1377, 960);
-            Controls.Add(lbl_Title);
+            Controls.Add(lbl_title);
             Controls.Add(btn_quit);
             Controls.Add(btn_start);
-            Controls.Add(txt_p2_name);
-            Controls.Add(txt_p1_name);
-            Controls.Add(lbl_Player2);
-            Controls.Add(lbl_Player1);
+            Controls.Add(txt_p2Name);
+            Controls.Add(txt_p1Name);
+            Controls.Add(lbl_player2);
+            Controls.Add(lbl_player1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(6);
             MaximizeBox = false;
@@ -143,12 +143,12 @@
 
         #endregion
 
-        private Label lbl_Player1;
-        private Label lbl_Player2;
-        private TextBox txt_p1_name;
-        private TextBox txt_p2_name;
+        private Label lbl_player1;
+        private Label lbl_player2;
+        private TextBox txt_p1Name;
+        private TextBox txt_p2Name;
         private Button btn_start;
         private Button btn_quit;
-        private Label lbl_Title;
+        private Label lbl_title;
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Assignment_oNeillo
 {
-    //class to create a new save slot
+    //class to store attributes for a save slot
     public class SaveSlot
     {
         //attributes that need to be stored for each slot.

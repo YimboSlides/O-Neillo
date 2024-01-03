@@ -1,6 +1,6 @@
 ﻿namespace Assignment_oNeillo
 {
-    partial class About
+    partial class aboutForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(aboutForm));
             pictureBox1 = new PictureBox();
-            txt_AboutDesc = new TextBox();
+            txt_aboutDesc = new TextBox();
             lbl_Title = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -46,15 +46,15 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // txt_AboutDesc
+            // txt_aboutDesc
             // 
-            txt_AboutDesc.Location = new Point(465, 134);
-            txt_AboutDesc.Multiline = true;
-            txt_AboutDesc.Name = "txt_AboutDesc";
-            txt_AboutDesc.PlaceholderText = "O'Neillo V1";
-            txt_AboutDesc.ReadOnly = true;
-            txt_AboutDesc.Size = new Size(323, 312);
-            txt_AboutDesc.TabIndex = 1;
+            txt_aboutDesc.Location = new Point(465, 134);
+            txt_aboutDesc.Multiline = true;
+            txt_aboutDesc.Name = "txt_aboutDesc";
+            txt_aboutDesc.PlaceholderText = "O'Neillo V1";
+            txt_aboutDesc.ReadOnly = true;
+            txt_aboutDesc.Size = new Size(323, 312);
+            txt_aboutDesc.TabIndex = 1;
             // 
             // lbl_Title
             // 
@@ -66,16 +66,16 @@
             lbl_Title.TabIndex = 2;
             lbl_Title.Text = "O'Neillo V1";
             // 
-            // About
+            // aboutForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 549);
             Controls.Add(lbl_Title);
-            Controls.Add(txt_AboutDesc);
+            Controls.Add(txt_aboutDesc);
             Controls.Add(pictureBox1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "About";
+            Name = "aboutForm";
             Text = "About";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
@@ -85,7 +85,7 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private TextBox txt_AboutDesc;
+        private TextBox txt_aboutDesc;
         private Label lbl_Title;
     }
 }

@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace Assignment_oNeillo
 {
-    public partial class Select_Slot : Form
+    public partial class selectSlotForm : Form
     {
         //slot number and list of save names
         public int slot;
         List<string> saveNames = new List<string>();
 
 
-        public Select_Slot(string name1, string name2, string name3, string name4, string name5)
+        public selectSlotForm(string name1, string name2, string name3, string name4, string name5)
         {
             //takes the save names and adds to list
             saveNames.Add(name1);

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace GameBoardTest
 {
-    public partial class Board : Form
+    public partial class boardForm : Form
     {
         //Initialising the dimensions of the board
         const int rowNum = 8;
@@ -48,7 +48,7 @@ namespace GameBoardTest
         //name for players
         //data for board
         //whether the data has been saved or not
-        public Board(string name1, string name2)
+        public boardForm(string name1, string name2)
         {
 
             InitializeComponent();
@@ -57,8 +57,8 @@ namespace GameBoardTest
             player1.name = name1;
             player2.name = name2;
 
-           
-            
+
+
             //establishes board size
             Point top = new Point(75, 75);
             Point bottom = new Point(75, 225);
@@ -490,7 +490,7 @@ namespace GameBoardTest
             if (save == true)
             {
                 //gets user to choose a slot
-                Select_Slot test = new Select_Slot(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
+                selectSlotForm test = new selectSlotForm(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
                 test.FormBorderStyle = FormBorderStyle.FixedDialog;
                 test.MaximizeBox = false;
                 test.MinimizeBox = false;
@@ -560,7 +560,7 @@ namespace GameBoardTest
             else
             {
                 //open dialog box prompt
-                Save saveMenu = new Save(text, "Yes", "No");
+                confirmSaveForm saveMenu = new confirmSaveForm(text, "Yes", "No");
                 saveMenu.ShowDialog();
 
                 //wait for response
@@ -596,7 +596,7 @@ namespace GameBoardTest
                 enable = true;
             }
 
-            if(response == true)
+            if (response == true)
             {
                 //determines who is set to play when this save is loaded
                 int turn, nTurn;
@@ -622,7 +622,7 @@ namespace GameBoardTest
                 Save1.empty = false;
 
                 //Name the save
-                Save_Name Name = new Save_Name();
+                nameSaveForm Name = new nameSaveForm();
                 Name.FormBorderStyle = FormBorderStyle.FixedDialog;
                 Name.MaximizeBox = false;
                 Name.MinimizeBox = false;
@@ -646,7 +646,7 @@ namespace GameBoardTest
                 switch (index)
                 {
                     case 0:
-                        //sets the GUI name
+                        //sets the name in the GUI
                         save1ToolStripMenuItem.Text = $"Save 1 - {Slots.saves[0].name}";
                         load1.Text = $"Save 1 - {Slots.saves[0].name}";
 
@@ -657,6 +657,9 @@ namespace GameBoardTest
                             load1.Enabled = true;
                         }
                         break;
+                        
+                        //this code is repeated for each different slot
+
                     case 1:
                         save2ToolStripMenuItem.Text = $"Save 2 - {Slots.saves[1].name}";
                         load2.Text = $"Save 2 - {Slots.saves[1].name}";
@@ -697,9 +700,11 @@ namespace GameBoardTest
         //new game
         public void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             bool save;
             //executes save choice
+
+            //if game is in progress, get user to check
             if (gameBegun == true)
             {
                 save = SaveChoice("You are ending a game in progress. Do you want to save?");
@@ -713,7 +718,7 @@ namespace GameBoardTest
             //if user does want to save game
             if (save == true)
             {
-                Select_Slot test = new Select_Slot(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
+                selectSlotForm test = new selectSlotForm(Slots.saves[0].name, Slots.saves[1].name, Slots.saves[2].name, Slots.saves[3].name, Slots.saves[4].name);
                 test.FormBorderStyle = FormBorderStyle.FixedDialog;
                 test.MaximizeBox = false;
                 test.MinimizeBox = false;
@@ -769,7 +774,7 @@ namespace GameBoardTest
         //about window
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            About about = new About();
+            aboutForm about = new aboutForm();
             //creates static about window
             about.FormBorderStyle = FormBorderStyle.FixedDialog;
             about.MaximizeBox = false;
@@ -819,7 +824,7 @@ namespace GameBoardTest
             //updates the board, updates score
             _gameBoardGui.UpdateBoardGui(gameBoardData);
 
-            
+
             lbl_ScoreOne.Text = player1.CalcScore(gameBoardData, rowNum, colNum).ToString();
             lbl_ScoreTwo.Text = player2.CalcScore(gameBoardData, rowNum, colNum).ToString();
         }
@@ -828,17 +833,18 @@ namespace GameBoardTest
         private (string, string) ChangeName()
         {
             //new form
-            Enter_Names ChangeName = new Enter_Names();
+            changeNamesForm ChangeName = new changeNamesForm();
             //tuple
             (string, string) names;
-            
+
+            //open form
             ChangeName.FormBorderStyle = FormBorderStyle.FixedDialog;
             ChangeName.MaximizeBox = false;
             ChangeName.MinimizeBox = false;
             ChangeName.ShowDialog();
 
             //if the names have been changed
-            if(ChangeName.change == true)
+            if (ChangeName.change == true)
             {
                 names.Item1 = ChangeName.name1;
                 names.Item2 = ChangeName.name2;
@@ -914,8 +920,10 @@ namespace GameBoardTest
         //Option for user to change names after the start screen
         private void changeNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //executes method to change names
             (string, string) names = ChangeName();
 
+            //turns player names into new names
             player1.name = names.Item1;
             player2.name = names.Item2;
 

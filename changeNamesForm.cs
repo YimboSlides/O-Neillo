@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Assignment_oNeillo
 {
-    public partial class Enter_Names : Form
+    public partial class changeNamesForm : Form
     {
         //variables for player names
         public string name1;
@@ -18,7 +18,7 @@ namespace Assignment_oNeillo
         //boolean to determine if cancel pressed or not
         public bool change;
 
-        public Enter_Names()
+        public changeNamesForm()
         {
             InitializeComponent();
         }

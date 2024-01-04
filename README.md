@@ -11,6 +11,8 @@ The project incorporates a class, known as 'GameboardImageArray', which was deve
 did not feel confident enough to develop parts of the code responsible for rendering the GUI. This class, in addition to the images supplied for the tiles and playing pieces, and the images for the order-of-play arrow are the only elements of my project that are not my own work.
 
 ## Installation
+A recurring issue I have identified is that sometimes the program is unable to run due to the fact that the .resx files have the mark of web. To solve this issue, after downloading the .zip folder for this project right click it and select Properties. From here, check the box marked 'Unblock', and then extract the files. The project should now work properly.
+
 All necessary files for this project are contained in this zipped folder. The only additional requirements for this project are that the Newtonsoft library is installed, which is necessary for the saving games function. 
 
 To install, refer to the following link (https://learn.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio), and read the steps under the sub heading 'Add the Newtonsoft.Json NuGet package'.
